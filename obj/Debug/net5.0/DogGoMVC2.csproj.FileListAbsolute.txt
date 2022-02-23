@@ -427,3 +427,4 @@ C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\bin\Debug\net5
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\bin\Debug\net5.0\System.IO.Pipelines.dll
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Owners\Create.cshtml.g.cs
+C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Owners\Delete.cshtml.g.cs
