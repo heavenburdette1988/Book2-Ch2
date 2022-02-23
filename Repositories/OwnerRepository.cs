@@ -90,6 +90,7 @@ namespace DogGoMVC2.Repositories
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             Address = reader.GetString(reader.GetOrdinal("Address")),
                             Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
                         };
 

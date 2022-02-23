@@ -33,7 +33,7 @@ namespace DogGoMVC2.Controllers
             {
                 return NotFound();
             }
-            return View();
+            return View(owner);
         }
 
         // GET: OwnerController/Create
