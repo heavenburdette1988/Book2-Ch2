@@ -1,9 +1,30 @@
-﻿@model DogGoMVC2.Models.Walker
+﻿@model DogGoMVC2.Models.ViewModels.ProfileViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
+<div>
+  <h1 class="mb-4">@Model.Owner.Name</h1>
+
+  <section class="container">
+    <img
+      style="width:100px;float:left;margin-right:20px"
+      src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Font_Awesome_5_regular_user-circle.svg"
+    />
+    <div>
+      <label class="font-weight-bold">Address:</label>
+      <span>@Model.Owner.Address</span>
+    </div>
+    <div>
+      <label class="font-weight-bold">Phone:</label>
+      <span>@Model.Owner.Phone</span>
+    </div>
+    <div>
+      <label class="font-weight-bold">Email:</label>
+      <span>@Model.Owner.Email</span>
+    </div>
+  </section>
 <h1>Details</h1>
 
 <div>

@@ -6,6 +6,6 @@ namespace DogGoMVC2.Repositories
     public interface INeighborhoodRepository
     {
          List<Neighborhood> GetAll();
-
+        //List<Neighborhood> GetOwnerById(int id);
     }
 }
