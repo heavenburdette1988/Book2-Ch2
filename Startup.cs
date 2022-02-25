@@ -1,5 +1,6 @@
 using DogGo.Repositories;
 using DogGoMVC2.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,9 @@ namespace DogGoMVC2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddControllersWithViews();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddTransient<IWalkerRepository, WalkerRepository>();
             services.AddTransient<IOwnerRepository, OwnerRepository>();
@@ -32,6 +36,9 @@ namespace DogGoMVC2
             services.AddTransient<INeighborhoodRepository, NeighborhoodRepository>();
 
             services.AddTransient<IWalkRepository, WalkRepostiory>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options => options.LoginPath = "/Owners/LogIn");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +59,7 @@ namespace DogGoMVC2
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

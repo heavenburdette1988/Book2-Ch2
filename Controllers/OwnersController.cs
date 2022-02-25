@@ -2,16 +2,50 @@
 using DogGoMVC2.Models;
 using DogGoMVC2.Models.ViewModels;
 using DogGoMVC2.Repositories;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace DogGoMVC2.Controllers
 {
     public class OwnersController : Controller
     {
+        public ActionResult Login()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel viewModel)
+        {
+            Owner owner = _ownerRepo.GetOwnerByEmail(viewModel.Email);
+
+            if (owner == null)
+            {
+                return Unauthorized();
+            }
+
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
+        new Claim(ClaimTypes.Email, owner.Email),
+        new Claim(ClaimTypes.Role, "DogOwner"),
+    };
+
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
+
+            return RedirectToAction("Index", "Dogs");
+        }
         private readonly IOwnerRepository _ownerRepo;
         private readonly IDogRepository _dogRepo;
         private readonly IWalkerRepository _walkerRepo;
@@ -151,6 +185,8 @@ namespace DogGoMVC2.Controllers
                 return View(owner);
             }
         }
+
+   
     }
     }
 
