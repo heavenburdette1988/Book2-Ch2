@@ -110,6 +110,7 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                 SELECT Id, [Name], ImageUrl, NeighborhoodId
                 FROM Walker
+                Left Join 
                 WHERE NeighborhoodId = @neighborhoodId
             ";
 

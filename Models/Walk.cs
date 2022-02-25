@@ -3,7 +3,7 @@
 namespace DogGoMVC2.Models
    
 {
-    public class Walks
+    public class Walk
     {
         public int Id { get; set; }
        
