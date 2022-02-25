@@ -69,10 +69,13 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], ImageUrl, NeighborhoodId
-                        FROM Walker
-                        WHERE Id = @id
+                       SELECT w.Id AS 'Walker Id', w.[Name] AS 'Walker Name', w.ImageUrl, w.NeighborhoodId,
+                               n.Id AS 'Hood Id', n.[Name] AS 'Hood Name'
+                        FROM Walker w
+                        LEFT JOIN Neighborhood n ON w.NeighborhoodId = n.Id
+                        WHERE w.Id = @id
                     ";
+                    //  WHERE w.Id = @id   is passing parameter AddWithValueVVV then  to getwalkerById Param^^^ 
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -82,10 +85,17 @@ namespace DogGo.Repositories
                     {
                         Walker walker = new Walker
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Id = reader.GetInt32(reader.GetOrdinal("Walker Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Walker Name")),
                             ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
-                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+
+                              Neighborhood = new Neighborhood()
+                              {
+                                  Id = reader.GetInt32(reader.GetOrdinal("Hood Id")),
+                                  Name = reader.GetString(reader.GetOrdinal("Hood Name"))
+                              }
+
                         };
 
                         reader.Close();

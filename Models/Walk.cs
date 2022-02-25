@@ -1,5 +1,5 @@
 ﻿
-
+using System;
 namespace DogGoMVC2.Models
    
 {
@@ -7,11 +7,14 @@ namespace DogGoMVC2.Models
     {
         public int Id { get; set; }
        
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public int Duration { get; set; }
 
-        public int WalkId { get; set; } 
+        public int WalkerId { get; set; } 
 
-        public int DogId { get; set; }  
+        public int DogId { get; set; }
+
+       public Walker Walker { get; set; } 
+        public Dog Dog { get; set; }
     }
 }
