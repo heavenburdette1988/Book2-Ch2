@@ -432,3 +432,4 @@ C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Dogs\Index.cshtml.g.cs
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Dogs\Create.cshtml.g.cs
 C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Owners\Login.cshtml.g.cs
+C:\Users\heave\workspace\NewForce-Backend\SQL\DogGoMVC2\DogGoMVC2\obj\Debug\net5.0\Razor\Views\Dogs\Details.cshtml.g.cs
