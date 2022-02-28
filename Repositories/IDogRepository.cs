@@ -10,6 +10,9 @@ namespace DogGoMVC2.Repositories
 
         void AddDog(Dog dog);
         List<Dog> GetDogsByOwnerId(int id);
+        void UpdateDog(Dog dog);
+
+        void DeleteDog(int dogId);
 
         //void AddDogWithNull(Dog dog);
 

@@ -73,50 +73,71 @@ namespace DogGoMVC2.Controllers
         }
 
         // GET: DogController/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
-            Dog dog = _dogRepo.GetDogById(id);
+            int CurrentUser = GetCurrentUserId();
 
-            if (dog == null)
+            Dog dog = _dogRepo.GetDogById(id);
+            //dog.OwnerId = CurrentUser;
+
+            if (dog == null || dog.OwnerId != CurrentUser)
             {
                 return NotFound();
             }
+            
             return View(dog);
         }
 
         // POST: DogController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Owner owner)
+        public ActionResult Edit(int id, Dog dog)
         {
             try
             {
+                //_dogRepo.GetDogById(id);
+                dog.OwnerId = GetCurrentUserId();
+                _dogRepo.UpdateDog(dog);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(dog);
             }
         }
 
         // GET: DogController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            int CurrentUser = GetCurrentUserId();
+
+            Dog dog = _dogRepo.GetDogById(id);
+
+            if (dog == null || dog.OwnerId != CurrentUser)
+            {
+                return NotFound();
+            }
+
+            return View(dog);
         }
 
         // POST: DogController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Dog dog)
         {
             try
             {
+                dog.OwnerId = GetCurrentUserId();
+                _dogRepo.DeleteDog(id);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(dog);
             }
         }
             private int GetCurrentUserId()
