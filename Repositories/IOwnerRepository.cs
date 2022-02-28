@@ -15,5 +15,6 @@ namespace DogGoMVC2.Repositories
 
         void UpdateOwner(Owner owner);
         void DeleteOwner(int ownerId);
+        
     }
 }

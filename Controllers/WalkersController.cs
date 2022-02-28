@@ -5,6 +5,10 @@ using DogGoMVC2.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+
+
 using static DogGoMVC2.Models.ViewModels.WalkersProfileViewModel;
 
 namespace DogGoMVC2.Controllers
@@ -13,20 +17,31 @@ namespace DogGoMVC2.Controllers
     {
         private readonly IWalkerRepository _walkerRepo;
         private readonly IWalkRepository _walkRepo;
+        private readonly IOwnerRepository _ownerRepo;
 
         // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
-        public WalkersController(IWalkerRepository walkerRepository, IWalkRepository walkRepository)
+        public WalkersController(IWalkerRepository walkerRepository, IWalkRepository walkRepository, IOwnerRepository ownerRepository)
         { 
             _walkerRepo = walkerRepository;
             _walkRepo = walkRepository;
-            
+            _ownerRepo = ownerRepository;
+
+
         }
 
         // GET: HomeController1
         public ActionResult Index()
         {
+            //getOwnersById  
+
+            int currentUser = GetCurrentUserId();
+            Owner owner = _ownerRepo.GetOwnerById(currentUser);
             List<Walker> walkers = _walkerRepo.GetAllWalkers();
-            return View(walkers);
+
+            //Filtering all walkers to only with the same neighborId as the owner.neightborid
+            List<Walker> neighborhoodWalker = walkers.Where(w => w.NeighborhoodId == owner.NeighborhoodId).ToList();
+
+            return View(neighborhoodWalker);
         }
 
         // GET: HomeController1/Details/5
@@ -104,5 +119,13 @@ namespace DogGoMVC2.Controllers
                 return View();
             }
         }
+
+
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
+        }
+
     }
 }
